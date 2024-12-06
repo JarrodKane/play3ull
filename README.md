@@ -1,134 +1,58 @@
-# Frontend Developer Take-Home Test
+# Turborepo Tailwind CSS starter
 
-## Overview
+This is an official starter Turborepo.
 
-Develop a responsive e-commerce web application that allows users to browse products, view product details, and add products to a shopping cart.
-The application should integrate with a backend API to fetch product data.
+## Using this example
 
-- The goal is a clear demonstration of quality, functionality, and thought process.
-- **Timebox:** The test is designed to be completed in 6 hours or less.
-- **Commit Often:** Show your working process through regular commits.
-- **External dependencies:** Use any external dependencies you see fit, you do not need to implement everything from scratch.
-- **Keep It Minimal:** Use lightweight libraries and avoid adding unnecessary features, or over-engineering the solution.
+Run the following command:
 
-## Requirements
+```sh
+npx create-turbo@latest -e with-tailwind
+```
 
-### Functional
+## What's inside?
 
-1. **Product Listing Page**
-    - Display a list of products with images, names, and prices.
-    - Implement pagination or infinite scrolling.
+This Turborepo includes the following packages/apps:
 
-2. **Product Detail Page**
-    - Show detailed information about the selected product.
-    - Include an "Add to Cart" button.
+### Apps and Packages
 
-3. **Shopping Cart**
-    - Allow users to view products added to their cart.
-    - Display the total price and quantity of items.
-    - Enable users to remove items from the cart.
+- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
+- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
+- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
+- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-4. **Responsive Design**
-    - Ensure the application is usable on desktop, tablet, and mobile devices.
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Technical
+### Building packages/ui
 
-- **Frameworks & Libraries**
-    - **Next.js** with **TypeScript**.
-    - Style components using **Tailwind CSS**.
+This example is set up to produce compiled styles for `ui` components into the `dist` directory. The component `.tsx` files are consumed by the Next.js apps directly using `transpilePackages` in `next.config.js`. This was chosen for several reasons:
 
-- **State Management**
-    - Manage application state efficiently.
+- Make sharing one `tailwind.config.js` to apps and packages as easy as possible.
+- Make package compilation simple by only depending on the Next.js Compiler and `tailwindcss`.
+- Ensure Tailwind classes do not overwrite each other. The `ui` package uses a `ui-` prefix for it's classes.
+- Maintain clear package export boundaries.
 
-- **TypeScript**
-    - Use TypeScript for type-checking and code quality.
-    - 
-- **API Integration**
-    - Fetch data from a provided RESTful API endpoint.
-    - Handle loading states and error handling gracefully.
-    - API should be typed using TypeScript.
+Another option is to consume `packages/ui` directly from source without building. If using this option, you will need to update the `tailwind.config.js` in your apps to be aware of your package locations, so it can find all usages of the `tailwindcss` class names for CSS compilation.
 
-- **Code Quality**
-    - Apply **SOLID principles** and design patterns.
-    - Write consistent, clean, maintainable, and scalable code.
-    - Create universal and reusable UI components.
+For example, in [tailwind.config.js](packages/tailwind-config/tailwind.config.js):
 
-- **Testing**
-    - Write unit tests for critical components (optional).
+```js
+  content: [
+    // app content
+    `src/**/*.{js,ts,jsx,tsx}`,
+    // include packages if not transpiling
+    "../../packages/ui/*.{js,ts,jsx,tsx}",
+  ],
+```
 
-## Getting Started
+If you choose this strategy, you can remove the `tailwindcss` and `autoprefixer` dependencies from the `ui` package.
 
-1. **Fork this Repository**
-    - You can start by forking this repository.
+### Utilities
 
-2. **Setup Project**
-    - Initialize a new Next.js project with TypeScript.
-    - Install Tailwind CSS and configure it.
+This Turborepo has some additional tools already setup for you:
 
-3. **API Endpoint**
-    - Use a mock API for product data such as [Fake Store API](https://fakestoreapi.com/).
-
-4. **Development**
-    - Follow the requirements to build the application.
-    - Ensure the application builds and runs without errors.
-
-## Submission Guidelines
-
-- **Repository**
-    - Push your code to a **public GitHub repository**.
-    - Ensure the repository has a clear commit history, and commit regularly.
-    - Ensure the repository is a fork of this repository.
-
-- **README File**
-    - Include instructions on how to run your application.
-    - Describe your thought process and any architectural decisions.
-    - Mention any trade-offs or assumptions made during development.
-
-- **Deployment**
-    - (Optional) Deploy your application using services like **Vercel**.
-    - Provide a link to the live application if deployed.
-
-- **Submission**
-    - Email us the link to your GitHub repository (and live demo if available) at [sam.thompson@playa3ull.games].
-
-## Evaluation Criteria
-
-- **Functionality**
-    - Does the application meet all the functional requirements?
-
-- **Code Quality**
-    - Is the code clean, well-organized, and maintainable?
-    - Are SOLID principles and design patterns appropriately applied?
-
-- **Technical Skills**
-    - Effective use of React, TypeScript, and Tailwind CSS.
-    - Proper integration with the backend API.
-
-- **User Experience**
-    - Is the UI responsive and user-friendly?
-    - Does the design consider good UX practices?
-
-- **Problem-Solving**
-    - How were challenges addressed?
-    - Were creative solutions implemented?
-
-- **Documentation**
-    - Clarity of the README file.
-    - Use of comments and documentation within the code.
-
-## Extra Credit
-
-*These are not required but can showcase your additional skills:*
-
-- **GraphQL or tRPC**
-    - Use GraphQL or tRPC instead of REST for API interactions.
-
-- **Monorepo Setup**
-    - Organize your project using a monorepo approach.
-
-- **SEO Enhancements**
-    - Implement SEO optimisation.
-
-- **E-commerce Features**
-    - Add user authentication.
-    - Implement a checkout process.
+- [Tailwind CSS](https://tailwindcss.com/) for styles
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
