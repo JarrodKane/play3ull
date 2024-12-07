@@ -5,6 +5,7 @@ export function Card({
   title,
   children,
   image,
+  price,
   onclick,
 }: {
   title: ReactNode;
@@ -19,6 +20,7 @@ export function Card({
       <div className='ui-h-48 ui-w-full ui-overflow-hidden ui-flex ui-justify-center ui-items-center'>
         {image}
       </div>
+      <p>{price}</p>
       <p className='ui-m-0 ui-max-w-[30ch] ui-text-sm ui-opacity-50 ui-line-clamp-3'>
         {children}
       </p>

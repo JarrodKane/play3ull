@@ -33,7 +33,7 @@ export type Product = {
   __typename?: 'Product';
   category: Scalars['String']['output'];
   description: Scalars['String']['output'];
-  id: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
   image: Scalars['String']['output'];
   price: Scalars['Float']['output'];
   title: Scalars['String']['output'];
@@ -55,7 +55,7 @@ export type GetProductsQuery = {
   __typename?: 'Query';
   products: Array<{
     __typename?: 'Product';
-    id: string;
+    id: number;
     title: string;
     description: string;
     category: string;

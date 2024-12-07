@@ -4,12 +4,14 @@ import { useQuery } from '@apollo/client';
 import { Card } from '@repo/ui/components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
 import type { GetProductsQuery } from '../gql/graphql';
+import { CartContext } from '../providers/CartProvider';
 import { GET_PRODUCTS } from '../queries/get-products';
-import { cartActions } from '../utils';
 
 export default function Page(): JSX.Element {
   const { data, loading, error } = useQuery<GetProductsQuery>(GET_PRODUCTS);
+  const { addToCart } = useContext(CartContext);
 
   // TODO: Deal with loading state
   if (loading) {
@@ -23,11 +25,9 @@ export default function Page(): JSX.Element {
 
   // TODO: SEO component that takes in the data given, in order to create a default meta data for each page
 
-  const { addToCart } = cartActions();
-
   // TODO: Debounce and disable
-  const handleOnClickCardAdd = (id: string): void => {
-    addToCart(id);
+  const handleOnClickCardAdd = (id: number, price: number): void => {
+    addToCart(id, price);
   };
 
   return (
@@ -49,7 +49,7 @@ export default function Page(): JSX.Element {
             }
             key={product.id}
             onclick={() => {
-              handleOnClickCardAdd(product.id);
+              handleOnClickCardAdd(product.id, product.price);
             }}
             price={product.price}
             title={

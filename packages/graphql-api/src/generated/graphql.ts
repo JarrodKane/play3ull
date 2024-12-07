@@ -35,7 +35,7 @@ export type Product = {
   __typename?: 'Product';
   category: Scalars['String']['output'];
   description: Scalars['String']['output'];
-  id: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
   image: Scalars['String']['output'];
   price: Scalars['Float']['output'];
   title: Scalars['String']['output'];
@@ -160,6 +160,7 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Product: ResolverTypeWrapper<Product>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -169,6 +170,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
+  Int: Scalars['Int']['output'];
   Product: Product;
   Query: {};
   String: Scalars['String']['output'];
@@ -181,7 +183,7 @@ export type ProductResolvers<
 > = {
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

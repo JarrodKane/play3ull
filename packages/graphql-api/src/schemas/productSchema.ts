@@ -1,6 +1,6 @@
 export const productSchema = `#graphql
   type Product {
-    id: String!
+    id: Int!
     title: String!
     price: Float!
     description: String!
