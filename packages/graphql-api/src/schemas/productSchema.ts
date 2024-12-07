@@ -1,13 +1,16 @@
 export const productSchema = `#graphql
   type Product {
-    id: String
-    title: String
-    description: String
-    category: String
-    image: String
+    id: Int!
+    title: String!
+    price: Int!
+    description: String!
+    category: String!
+    image: String!
   }
+  
 
   type Query {
-    products: [Product]
+    product(id: Int!): Product!
+    products: [Product!]!
   }
 `;

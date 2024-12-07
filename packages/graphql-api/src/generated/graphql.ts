@@ -30,16 +30,17 @@ export type Scalars = {
 
 export type Product = {
   __typename?: 'Product';
-  category?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  category: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: Array<Product>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -150,6 +151,7 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Product: ResolverTypeWrapper<Product>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -158,6 +160,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  Int: Scalars['Int']['output'];
   Product: Product;
   Query: {};
   String: Scalars['String']['output'];
@@ -168,15 +171,12 @@ export type ProductResolvers<
   ParentType extends
     ResolversParentTypes['Product'] = ResolversParentTypes['Product'],
 > = {
-  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -186,7 +186,7 @@ export type QueryResolvers<
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   products?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Product']>>>,
+    Array<ResolversTypes['Product']>,
     ParentType,
     ContextType
   >;

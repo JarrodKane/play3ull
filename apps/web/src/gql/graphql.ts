@@ -31,29 +31,30 @@ export type Scalars = {
 
 export type Product = {
   __typename?: 'Product';
-  category?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  category: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: Array<Product>;
 };
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetProductsQuery = {
   __typename?: 'Query';
-  products?: Array<{
+  products: Array<{
     __typename?: 'Product';
-    id?: string | null;
-    title?: string | null;
-    category?: string | null;
-    image?: string | null;
-  } | null> | null;
+    id: string;
+    title: string;
+    category: string;
+    image: string;
+  }>;
 };
 
 export const GetProductsDocument = {
