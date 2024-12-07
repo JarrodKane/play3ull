@@ -34,12 +34,15 @@ I used pnpm as a package manager for this project
 
 ```sh
 # cd into the cloned project and install the packages
-pnpm
+pnpm install
 
 # Runs the project in dev
 pnpm dev
+# Web app running at:  http://localhost:3000
+# Apollo server running at: http://localhost:4000
 
-# Codegen - With the dev server running you then need to run
+# Codegen
+# The Apollo server must be running, run the dev command above and then run
 pnpm codegen
 
 # Build
