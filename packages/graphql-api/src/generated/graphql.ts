@@ -31,6 +31,7 @@ export type Scalars = {
 export type Product = {
   __typename?: 'Product';
   category?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -168,6 +169,11 @@ export type ProductResolvers<
     ResolversParentTypes['Product'] = ResolversParentTypes['Product'],
 > = {
   category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
