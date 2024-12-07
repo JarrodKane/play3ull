@@ -1,13 +1,49 @@
-# Turborepo Tailwind CSS starter
+# Play3ull - Turborepo
 
-This is an official starter Turborepo.
+This project was created to reach the Fake Store API and display items on the frontend.
+I used Turborepo to set up the project using a template that came with tailwindscss.
+Context API is being used for state managment of the cart.
 
-## Using this example
+This project was made with the assumption that there would be multiple apps all using shared packages.
 
-Run the following command:
+## Pitfalls:
+
+No Continuous Scroll: The frontend currently doesn't implement infinite scrolling when fetching data from the API.
+Overly Complex State Management: The state management solution (Context API) is more intricate than necessary for the current scope of the project.
+Unfinished Features: Certain frontend tasks remain incomplete due to time spent exploring "nice-to-have" features and focusing on the project structure.
+
+## TODO:
+
+- Cart page
+- Product page
+- Auth (Supabase auth?)
+- Database
+- [Shadcn](https://ui.shadcn.com/)
+- SEO
+- Storybook for visual testing
+- Playwright for additional testing
+- Unit tests for BE
+- Error handling
+- Loading states
+- .env variables
+- Deploy
+
+## Commands
+
+I used pnpm as a package manager for this project
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+# cd into the cloned project and install the packages
+pnpm
+
+# Runs the project in dev
+pnpm dev
+
+# Codegen - With the dev server running you then need to run
+pnpm codegen
+
+# Build
+pnpm build
 ```
 
 ## What's inside?
@@ -16,43 +52,19 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
 - `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
+- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` application
+- `graphql-api`: a graphql [Apollo server](https://www.apollographql.com/docs/apollo-server/getting-started) used for the`web` application
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Building packages/ui
-
-This example is set up to produce compiled styles for `ui` components into the `dist` directory. The component `.tsx` files are consumed by the Next.js apps directly using `transpilePackages` in `next.config.js`. This was chosen for several reasons:
-
-- Make sharing one `tailwind.config.js` to apps and packages as easy as possible.
-- Make package compilation simple by only depending on the Next.js Compiler and `tailwindcss`.
-- Ensure Tailwind classes do not overwrite each other. The `ui` package uses a `ui-` prefix for it's classes.
-- Maintain clear package export boundaries.
-
-Another option is to consume `packages/ui` directly from source without building. If using this option, you will need to update the `tailwind.config.js` in your apps to be aware of your package locations, so it can find all usages of the `tailwindcss` class names for CSS compilation.
-
-For example, in [tailwind.config.js](packages/tailwind-config/tailwind.config.js):
-
-```js
-  content: [
-    // app content
-    `src/**/*.{js,ts,jsx,tsx}`,
-    // include packages if not transpiling
-    "../../packages/ui/*.{js,ts,jsx,tsx}",
-  ],
-```
-
-If you choose this strategy, you can remove the `tailwindcss` and `autoprefixer` dependencies from the `ui` package.
-
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
+Tools:
 
 - [Tailwind CSS](https://tailwindcss.com/) for styles
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+- [Graphql Codegen](https://the-guild.dev/graphql/codegen) for codegen
+- [Husky](https://github.com/typicode/husky) for precommit

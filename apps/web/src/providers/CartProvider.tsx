@@ -1,39 +1,49 @@
 'use client';
 
+// TODO: This the entire file should be renamed since now it also holds the products
+//  TODO: Remove the products out of here, and instead pass them into the functions, this context is messy and not specific enough
 import type { ReactNode } from 'react';
 import { createContext, useState } from 'react';
+import type { GetProductsQuery } from '../gql/graphql';
 
 // TODO: Store in local state, reach in to grab on load
 interface CartProps {
-  amount: number;
-  total: number;
   [key: number]: {
     total: number;
     price: number;
   };
+  products: GetProductsQuery['products'];
 }
 
 export type SetCart = React.Dispatch<React.SetStateAction<CartProps>>;
 
 interface CartContextType {
-  cart: CartProps;
   addToCart: (id: number, price: number) => void;
+  cart: CartProps;
+  products: GetProductsQuery['products'];
   removeFromCart: (id: number) => void;
+  setProducts: (products: GetProductsQuery['products']) => void;
   totalAmount: number;
+  totalInCartProducts: number;
 }
 
-const initialCart: CartProps = { amount: 0, total: 0 };
+const initialCart: CartProps = { products: [] };
 
 export const CartContext = createContext<CartContextType>({
+  // These is just a dummy initial sets
   cart: initialCart,
   addToCart: () => {
-    // This is just a dummy initial set
     throw new Error('addToCart function must be implemented');
   },
   removeFromCart: () => {
     throw new Error('removeFromCart function must be implemented');
   },
+  products: [],
+  setProducts: () => {
+    throw new Error('setProducts function must be implemented');
+  },
   totalAmount: 0,
+  totalInCartProducts: 0,
 });
 
 export function CartProvider({
@@ -42,32 +52,31 @@ export function CartProvider({
   children: ReactNode;
 }): JSX.Element {
   const [cart, setCart] = useState<CartProps>(initialCart);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [totalInCartProducts, setTotalInCartProducts] = useState<number>(0);
+  const [products, setProducts] = useState<GetProductsQuery['products']>([]);
 
   const addToCart = (id: number, price: number): void => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (cart[id]) {
       setCart((prevCart) => ({
         ...prevCart,
-        amount: prevCart.amount + prevCart[id].price,
-        total: prevCart.total + 1,
         [id]: { total: prevCart[id].total + 1, price: prevCart[id].price },
       }));
     } else {
       setCart((prevCart) => ({
         ...prevCart,
-        amount: prevCart.amount + price,
-        total: prevCart.total + 1,
         [id]: { total: 1, price },
       }));
     }
+    setTotalInCartProducts((prevTotal) => prevTotal + 1);
+    setTotalAmount((prevTotal) => prevTotal + products[id].price);
   };
 
   const removeFromCart = (id: number): void => {
     if (cart[id].total > 1) {
       setCart((prevCart) => ({
         ...prevCart,
-        amount: prevCart.amount - prevCart[id].price,
-        total: prevCart.total - 1,
         [id]: {
           ...prevCart[id],
           total: prevCart[id].total - 1,
@@ -77,27 +86,30 @@ export function CartProvider({
       setCart((prevCart) => {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (prevCart[id]) {
-          // We remove the id and return the rest
           const { [id]: _, ...remainingCart } = prevCart;
-
           return {
             ...remainingCart,
-            amount: prevCart.amount - prevCart[id].price,
-            total: prevCart.total - 1,
           };
         }
         return prevCart;
       });
     }
+    setTotalInCartProducts((prevTotal) => prevTotal - 1);
+    setTotalAmount((prevTotal) => prevTotal - products[id].price);
   };
 
   return (
     <CartContext.Provider
       value={{
-        cart,
         addToCart,
+        cart,
+        products,
         removeFromCart,
-        totalAmount: Math.round(cart.amount * 100) / 100,
+        setProducts: (productList: GetProductsQuery['products']) => {
+          setProducts(productList);
+        },
+        totalAmount,
+        totalInCartProducts,
       }}
     >
       {children}

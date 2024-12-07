@@ -4,14 +4,20 @@ import { useQuery } from '@apollo/client';
 import { Card } from '@repo/ui/components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import type { GetProductsQuery } from '../gql/graphql';
 import { CartContext } from '../providers/CartProvider';
 import { GET_PRODUCTS } from '../queries/get-products';
 
 export default function Page(): JSX.Element {
   const { data, loading, error } = useQuery<GetProductsQuery>(GET_PRODUCTS);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, setProducts } = useContext(CartContext);
+
+  useEffect(() => {
+    if (data) {
+      setProducts(data.products);
+    }
+  }, [data]);
 
   // TODO: Deal with loading state
   if (loading) {
