@@ -1,7 +1,16 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { resolvers } from './resolvers';
-import { typeDefs } from './schemas';
+import { productResolver } from './resolvers/productResolver.js';
+import { productSchema } from './schemas/productSchema.js';
+// TODO: Remove need to manually add .js on imports
+
+export const typeDefs = [productSchema].join('\n');
+
+export const resolvers = {
+  Query: {
+    ...productResolver.Query,
+  },
+};
 
 const server = new ApolloServer({
   typeDefs,
