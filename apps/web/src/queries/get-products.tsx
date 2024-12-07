@@ -5,8 +5,10 @@ export const GET_PRODUCTS = gql`
     products {
       id
       title
+      description
       category
       image
+      price
     }
   }
 `;

@@ -35,13 +35,18 @@ export type Product = {
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
   image: Scalars['String']['output'];
-  price: Scalars['Int']['output'];
+  price: Scalars['Float']['output'];
   title: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  product: Product;
   products: Array<Product>;
+};
+
+export type QueryProductArgs = {
+  id: Scalars['String']['input'];
 };
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never }>;
@@ -52,8 +57,10 @@ export type GetProductsQuery = {
     __typename?: 'Product';
     id: string;
     title: string;
+    description: string;
     category: string;
     image: string;
+    price: number;
   }>;
 };
 
@@ -75,8 +82,10 @@ export const GetProductsDocument = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'category' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'price' } },
               ],
             },
           },
