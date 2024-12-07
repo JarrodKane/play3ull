@@ -1,0 +1,25 @@
+{
+  "name": "graphql-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "dev": "npm run compile && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.1",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.2",
+    "graphql": "^16.9.0"
+  }
+}
