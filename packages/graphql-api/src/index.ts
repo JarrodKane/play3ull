@@ -1,12 +1,5 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-
-
-
-
-
-
-
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
 //  TODO: Move schemas into own folder
 const typeDefs = `#graphql
@@ -30,7 +23,7 @@ const resolvers = {
     products: async () => {
       // TODO: Remove hard codded limit
       const response = await fetch(
-        "https://fakestoreapi.com/products?limit=12",
+        'https://fakestoreapi.com/products?limit=12'
       );
       return response.json();
     },
