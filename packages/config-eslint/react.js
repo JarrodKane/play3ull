@@ -37,7 +37,8 @@ module.exports = {
   // add rules configurations here
   rules: {
     "import/no-default-export": "off",
-    "eslint-comments/require-description": "off"
+    "eslint-comments/require-description": "off",
+    'unicorn/filename-case': 'off',
   },
   overrides: [
     {
